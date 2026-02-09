@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-outfit);
+  --background: #06060a;
+  --foreground: #f4f4f5;
+  --card: rgba(255, 255, 255, 0.03);
+  --card-foreground: #f4f4f5;
+  --primary: #58a6ff;
+  --primary-foreground: #0d1117;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: #f4f4f5;
+  --muted: rgba(255, 255, 255, 0.08);
+  --muted-foreground: #a1a1aa;
+  --accent: rgba(88, 166, 255, 0.15);
+  --accent-foreground: #58a6ff;
+  --border: rgba(255, 255, 255, 0.08);
+  --ring: #58a6ff;
+}
+
+body {
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
