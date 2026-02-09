@@ -41,11 +41,14 @@ const FEATURES_KEYS = [
   { icon: Keyboard, key: "feature4" as const },
 ];
 
-const SHORTCUT_KEYS = [
-  { actionKey: "shortcut1Action" as const, key: "Ctrl + ↑" },
-  { actionKey: "shortcut2Action" as const, key: "Ctrl + ↓" },
-  { actionKey: "shortcut3Action" as const, key: "Ctrl + T" },
-  { actionKey: "shortcut4Action" as const, key: "Ctrl + Q" },
+const SHORTCUT_SPECS = [
+  { actionKey: "shortcut1Action" as const, keySuffix: "↑" },
+  { actionKey: "shortcut2Action" as const, keySuffix: "↓" },
+  { actionKey: "shortcut3Action" as const, keySuffix: "1" },
+  { actionKey: "shortcut4Action" as const, keySuffix: "2" },
+  { actionKey: "shortcut5Action" as const, keySuffix: "3" },
+  { actionKey: "shortcut6Action" as const, keySuffix: "T" },
+  { actionKey: "shortcut7Action" as const, keySuffix: "Q" },
 ];
 
 const RELEASES_URL = "https://github.com/ho0405/tranparent-browser/releases";
@@ -105,6 +108,7 @@ export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
   const [downloadUrls, setDownloadUrls] = useState<DownloadUrls | null>(null);
   const [platform, setPlatform] = useState<Platform | null>(null);
+  const [modKey, setModKey] = useState("Ctrl");
 
   useEffect(() => {
     setLang(getStoredLang());
@@ -119,6 +123,10 @@ export default function Home() {
 
   useEffect(() => {
     detectPlatform().then(setPlatform);
+  }, []);
+
+  useEffect(() => {
+    setModKey(typeof navigator !== "undefined" && /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ? "⌘" : "Ctrl");
   }, []);
 
   useEffect(() => {
@@ -450,18 +458,18 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-0">
-                  {SHORTCUT_KEYS.map((s, i) => (
+                  {SHORTCUT_SPECS.map((s, i) => (
                     <div
                       key={s.actionKey}
                       className={`flex justify-between items-center py-3 ${
-                        i < SHORTCUT_KEYS.length - 1
+                        i < SHORTCUT_SPECS.length - 1
                           ? "border-b border-zinc-100"
                           : ""
                       }`}
                     >
                       <span className="text-zinc-700">{txt[s.actionKey]}</span>
                       <kbd className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm font-mono text-zinc-600">
-                        {s.key}
+                        {modKey} + {s.keySuffix}
                       </kbd>
                     </div>
                   ))}
@@ -484,6 +492,25 @@ export default function Home() {
             >
               GitHub
             </Link>
+            {" · "}
+            <span className="text-zinc-600">{txt.footerDeveloper}</span>{" "}
+            <span className="text-zinc-700">Ryan Back</span>
+            {" · "}
+            <Link
+              href="https://daolconsulting.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-zinc-700 hover:underline"
+            >
+              {txt.footerDaolConsulting}
+            </Link>
+            {" · "}
+            <a
+              href="mailto:consulting.daol@gmail.com?subject=Peekaboo%20Bug%20Report"
+              className="text-zinc-700 hover:underline"
+            >
+              {txt.footerBugReport}: consulting.daol@gmail.com
+            </a>
             {" · "}
             MIT License
           </p>
