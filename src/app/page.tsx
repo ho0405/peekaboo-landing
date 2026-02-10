@@ -359,9 +359,11 @@ export default function Home() {
           <p className="text-zinc-600 text-center mb-6">
             {txt.downloadSub}
           </p>
-          <p className="text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-center max-w-2xl mx-auto mb-10">
-            {txt.macInstallNotice}
-          </p>
+          {txt.macInstallNotice ? (
+            <p className="text-amber-700 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-center max-w-2xl mx-auto mb-10">
+              {txt.macInstallNotice}
+            </p>
+          ) : null}
           <div className="flex flex-wrap justify-center items-center gap-4">
             <Button asChild size="lg" className="gap-2 rounded-xl">
               <a
