@@ -27,14 +27,11 @@ export async function GET() {
     const data = (await res.json()) as Release;
 
     const assets = data.assets || [];
-    const latestDmg = assets.find((a) => a.name.toLowerCase() === "peekaboo.dmg")
-      ?? assets.find((a) => a.name.toLowerCase().endsWith(".dmg"));
     const macIntel = assets.find((a) => a.name.includes(".dmg") && !a.name.toLowerCase().includes("arm64"));
     const macArm = assets.find((a) => a.name.toLowerCase().includes("arm64"));
     const win = assets.find((a) => a.name.endsWith(".exe"));
 
     return NextResponse.json({
-      latestDmg: latestDmg?.browser_download_url ?? null,
       macIntel: macIntel?.browser_download_url ?? null,
       macArm: macArm?.browser_download_url ?? null,
       windows: win?.browser_download_url ?? null,
@@ -43,7 +40,6 @@ export async function GET() {
   } catch (e) {
     return NextResponse.json(
       {
-        latestDmg: null,
         macIntel: null,
         macArm: null,
         windows: null,
