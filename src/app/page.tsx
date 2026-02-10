@@ -55,6 +55,7 @@ const RELEASES_URL = "https://github.com/ho0405/tranparent-browser/releases";
 const GITHUB_URL = "https://github.com/ho0405/tranparent-browser";
 
 type DownloadUrls = {
+  latestDmg: string | null;
   macIntel: string | null;
   macArm: string | null;
   windows: string | null;
@@ -142,15 +143,16 @@ export default function Home() {
   const txt = t[lang];
 
   const autoDownloadUrl =
-    downloadUrls && platform
-      ? platform === "mac-arm"
-        ? downloadUrls.macArm
-        : platform === "mac-intel"
-          ? downloadUrls.macIntel
-          : platform === "windows"
-            ? downloadUrls.windows
-            : null
-      : null;
+    downloadUrls?.latestDmg
+      ?? (downloadUrls && platform
+        ? platform === "mac-arm"
+          ? downloadUrls.macArm
+          : platform === "mac-intel"
+            ? downloadUrls.macIntel
+            : platform === "windows"
+              ? downloadUrls.windows
+              : null
+        : null);
 
   const autoDownloadLabel =
     platform === "mac-arm"
