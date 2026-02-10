@@ -365,17 +365,24 @@ export default function Home() {
             </p>
           ) : null}
           <div className="flex flex-wrap justify-center items-center gap-4">
-            <Button asChild size="lg" className="gap-2 rounded-xl">
-              <a
-                href={autoDownloadUrl ?? downloadUrls?.releasesPage ?? RELEASES_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                download={!!autoDownloadUrl}
-              >
+            {autoDownloadUrl ? (
+              <Button asChild size="lg" className="gap-2 rounded-xl">
+                <a
+                  href={autoDownloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <Download className="size-4" />
+                  {autoDownloadLabel}
+                </a>
+              </Button>
+            ) : (
+              <Button size="lg" className="gap-2 rounded-xl" disabled>
                 <Download className="size-4" />
-                {autoDownloadUrl ? autoDownloadLabel : txt.download}
-              </a>
-            </Button>
+                {txt.download}
+              </Button>
+            )}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="lg" className="gap-2 rounded-xl">
